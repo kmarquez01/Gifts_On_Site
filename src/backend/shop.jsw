@@ -1,0 +1,18 @@
+import wixData from 'wix-data';
+let options = {
+'suppressAuth': true ,
+'suppressHooks': true
+};
+
+export function getcollection(id) {
+return wixData.queryReferenced('Stores/Products', id, 'collections')
+.then((results) => {
+if (results.items.length > 0) {
+let collections = results.items.map(x => x.name)
+let filteredcollections = collections.filter(item => item !== 'Retail')
+return filteredcollections[0]
+} else {
+console.log('no collection found')
+}
+})
+}
